@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<VBox alignment="CENTER" styleClass="background" prefWidth="540.0" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" styleClass="background" prefWidth="540.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ErrorController">
     <ImageView fitWidth="540" fitHeight="300">
         <Image url="/view/image/error.png"/>
     </ImageView>
 
     <VBox alignment="CENTER" prefWidth="540.0" spacing="10">
         <Separator/>
-        <Label fx:id="exceptionText" text="Insert Exception" styleClass="error"/>
+        <Label fx:id="exceptionText" text="${exceptionText}" styleClass="error"/>
         <Separator/>
         <HBox alignment="CENTER" spacing="10">
-            <Label text="Insert error message"/>
+            <Label text="Invalid login credentials."/>
         </HBox>
         <HBox alignment="CENTER">
             <Button fx:id="closeButton" onAction="#handleClose" styleClass="button" prefWidth="540" HBox.hgrow="ALWAYS" text="close"/>

@@ -15,12 +15,18 @@ import model.exception.UnauthorisedAccessException;
 import javafx.stage.Stage;
 
 
-public class ErrorController extends Controller <Manager>{
+public class ErrorController extends Controller <String>{
     @FXML private Button closeButton;
     @FXML private Label exceptionText;
+
     @FXML
     private void initialize() {
+        if (model != null) {
+            exceptionText.setText(model);
 
+        } else {
+            exceptionText.setText("Unknown Error");
+        }
     }
 
     @FXML

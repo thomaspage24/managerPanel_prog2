@@ -20,7 +20,7 @@
         </HBox>
         <HBox>
             <Button fx:id="loginButton" onAction="#handleLogin" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Login"/>
-            <Button fx:id="exitButton" onAction="#handleExit" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Exit"/>
+            <Button fx:id="closeButton" onAction="#handleClose" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Exit"/>
         </HBox>
     </VBox>
     <stylesheets>

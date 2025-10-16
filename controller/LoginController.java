@@ -30,8 +30,11 @@ public class LoginController extends Controller<League> {
             int managerId = Integer.parseInt(managerTf.getText());
             Manager manager = model.validateManager(managerId);
 
+            ViewLoader.showStage(manager, "/view/ManagerDashboardView.fxml", "Manager Dashboard", new Stage());
+            stage.close(); // ?? maybe
+
         } catch (UnauthorisedAccessException e) {
-            showErrorScreen(e.getMessage());
+            showErrorScreen(e.getClass().getSimpleName());
         }
     }
     @FXML
@@ -40,6 +43,7 @@ public class LoginController extends Controller<League> {
     }
 
     private void showErrorScreen(String s) {
+        // implement invalid login and invalid format aswell
         ViewLoader.showStage(s,"/view/ErrorView.fxml", "error", new Stage());
 
     }

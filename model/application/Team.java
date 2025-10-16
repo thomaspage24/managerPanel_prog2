@@ -35,4 +35,10 @@ public class Team {
     public String toString() {
         return this.localName + " " + this.teamName;
     }
+
+    public String getJerseyString() {
+        return this.teamName.toLowerCase() + ".png";
+    }
+
+    
 }

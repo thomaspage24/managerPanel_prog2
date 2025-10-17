@@ -12,7 +12,7 @@
 
     <VBox alignment="CENTER" prefWidth="540.0" spacing="10">
         <Separator/>
-        <Label fx:id="exceptionText" text="${exceptionText}" styleClass="error"/>
+        <Label fx:id="exceptionText" styleClass="error"/>
         <Separator/>
         <HBox alignment="CENTER" spacing="10">
             <Label text="Invalid login credentials."/>

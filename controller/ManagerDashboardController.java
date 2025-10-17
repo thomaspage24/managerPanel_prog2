@@ -18,7 +18,7 @@ import java.io.*;
 
 public class ManagerDashboardController extends Controller<Manager>{
     /*
-     * team name center alligned
+     * team name center aligned
      * png of team jersey 
      * withdraw + manage button centered
      * bottom bar spanning whole hbox swap + close
@@ -53,9 +53,7 @@ public class ManagerDashboardController extends Controller<Manager>{
     }
 
     @FXML
-    private void handleClose() {
-        stage.close();
-    }
+    private void handleClose() { stage.close(); }
 
     @FXML
     private void handleWithdraw() {
@@ -68,9 +66,7 @@ public class ManagerDashboardController extends Controller<Manager>{
     }
 
     @FXML
-    private void handleSwap() {
-
-    }
+    private void handleSwap() { ViewLoader.showStage(model, "/view/SwapView.fxml", "Swap", new Stage()); }
 
     
 }

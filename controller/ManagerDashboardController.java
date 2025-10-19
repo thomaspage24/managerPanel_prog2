@@ -35,19 +35,12 @@ public class ManagerDashboardController extends Controller<Manager>{
     @FXML
     private void initialize() {
         if (model != null) {
-            Team team = model.getTeam();
-            teamNameLbl.setText(team.getTeamName());
+            refreshTeamData(model.getTeam());
 
-            String pathToImage = "/view/image/" + team.getJerseyString();
-            System.out.println(pathToImage);
-            InputStream stream = getClass().getResourceAsStream(pathToImage);
-            
-            if (stream != null) {
-                jersey.setImage(new Image (stream));
-            } else {
-                jersey.setImage(new Image("/view/image/none.png"));
-            } 
-             
+            model.teamProperty().addListener((obs, oldteam, newTeam) -> {
+                refreshTeamData(newTeam);
+                updateManagerButtons(newTeam);
+            });
             
         }
     }
@@ -57,17 +50,42 @@ public class ManagerDashboardController extends Controller<Manager>{
 
     @FXML
     private void handleWithdraw() {
-
+        if (model != null) {
+            Manager manager = League.getInstance().getLoggedInManager();
+            League.getInstance().withdrawManagerFromTeam(manager);
+            model.teamProperty().addListener((obs, oldTeam, newTeam) -> {
+                refreshTeamData(newTeam);
+                System.out.println("check withdraw old team" + oldTeam);
+                System.out.println("Check withdraw new team" + newTeam);
+            });
+        }
+       
     }
     
     @FXML 
-    private void handleManage() {
-
-    }
+    private void handleManage() { ViewLoader.showStage(model, "/view/TeamDashboardView.fxml", "Team Dashboard", new Stage()); }
 
     @FXML
     private void handleSwap() { ViewLoader.showStage(model, "/view/SwapView.fxml", "Swap", new Stage()); }
 
+    private void refreshTeamData(Team team) {
+        if (team == null) {
+            teamNameLbl.setText("No team");
+            jersey.setImage(new Image(getClass().getResourceAsStream("/view/image/none.png")));
+            return;
+        }
+
+        teamNameLbl.setText(team.getTeamName());
+        String pathToImage = "/view/image/" + team.getJerseyString();
+        jersey.setImage(new Image(getClass().getResourceAsStream(pathToImage)));
+    }
+
+    private void updateManagerButtons(Team team) {
+        boolean hasTeam = team != null;
+        withdrawBtn.setDisable(!hasTeam);
+        manageBtn.setDisable(!hasTeam);
+        
+    }
     
 }
 

@@ -57,7 +57,9 @@ public class SwapController extends Controller<Manager>{
     private void handleSwap() {
         Team selected =  teamLv.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            League.getInstance().setManagerForTeam(model, selected);
+            League league = League.getInstance();
+            league.setManagerForTeam(model, selected);
+            System.out.println(selected.getManager() + " " + league.getLoggedInManager().getTeam().getTeamName());
         }
     }
 }

@@ -29,8 +29,9 @@ public class LoginController extends Controller<League> {
         try {
             int managerId = Integer.parseInt(managerTf.getText());
             Manager manager = model.validateManager(managerId);
-
             ViewLoader.showStage(manager, "/view/ManagerDashboardView.fxml", "Manager Dashboard", new Stage());
+            League.getInstance().setLoggedInManager(manager);
+
             stage.close(); // ?? maybe
 
         } catch (UnauthorisedAccessException e) {

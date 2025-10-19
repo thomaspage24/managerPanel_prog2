@@ -11,9 +11,9 @@
     </ImageView>
 
     <VBox alignment="CENTER" prefWidth="540.0" spacing="10">
-        
+        <Separator/>
         <Label fx:id="teamNameLbl" styleClass="heading"/>
-
+        <Separator/>
         <ImageView fx:id="jersey" fitHeight="200" fitWidth="200"/>
       
         <HBox alignment="CENTER">

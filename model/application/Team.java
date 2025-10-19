@@ -20,6 +20,9 @@ public class Team {
     public String getTeamName() {
         return this.teamName;
     }
+    public String getTeamFullName() {
+        return this.localName + this.teamName;
+    }
 
     public Manager getManager() {
         return this.manager;

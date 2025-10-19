@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
-<VBox alignment="CENTER" styleClass="background" prefWidth="540.0" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" styleClass="background" prefWidth="540.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TeamDashboardController">
+    <ImageView fitWidth="540" fitHieght="300">
+        <Image url ="/view/image.banner.png"/>
+    </ImageView>
 
+    <VBox alignment="CENTER" prefWidth="540" spacing="10">
+        <Separator/>
+        <Label fx:id="teamNameLbl" styleClass="heading"/>
+        <Separator/>
+        
+        <HBox alignment="CENTER">
+            <Label text="Sign a new player:"/>
+            <TextField fx:id="enterPlayerTf"/>
+            <Button fx:id="signBtn" onAction="#handleSign" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Sign"/>
+        </HBox>
 
+        <Separator/>
+
+        <HBox> 
+            <!-- player list-->
+            <VBox spacing="5">
+                <Label text="Players"/>
+                <TableView fx:id="playersTv" prefWidth="300" prefHeight="200"/>
+                    <columns>
+                        <TableColumn text="Player"/>
+                        <TableColumn text="Position"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+        
+
+    </VBox>
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
 </VBox>

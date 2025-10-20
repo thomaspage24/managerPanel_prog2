@@ -33,24 +33,42 @@ public class TeamDashboardController extends Controller<Manager> {
     @FXML private TableColumn<Player, String> positionColumn;
     @FXML private GridPane teamJerseyGrid;
     @FXML private Button closeBtn;
+    @FXML private Button unsignBtn;
 
 
     @FXML
     private void initialize() {
-        playerColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+//        playersTv.getColumns().clear();
+//        TableColumn<Player, String> playerColumn = new TableColumn<>("Player");
+//        TableColumn<Player, String> positionColumn = new TableColumn<>("Position");
+//        playerColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+//        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+//        playersTv.getColumns().addAll(playerColumn, positionColumn);
+
+        enterPlayerTf.textProperty().addListener((obs, oldText, newText) -> {
+            signBtn.setDisable(false);
+        });
 
         if (model != null) {
             Team team = model.getTeam();
-            teamNameLbl.setText(team.getTeamFullName());
             playersTv.setItems(team.getAllPlayers().getPlayers());
 
+
         }
+        System.out.println("Columns loaded: " + playersTv.getColumns().size());
+        for (TableColumn<?, ?> col : playersTv.getColumns())
+            System.out.println(" -> " + col.getText());
+
+
     }
 
     @FXML private void handleSign() {
         /* if player not in league/alr on team/diff team ivalidsigning 
          * 
         */
+        Team team = model.getTeam();
+        if (team != null) {
+            return;
+        }
     }
 }

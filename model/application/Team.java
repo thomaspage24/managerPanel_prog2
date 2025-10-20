@@ -21,7 +21,7 @@ public class Team {
         return this.teamName;
     }
     public String getTeamFullName() {
-        return this.localName + this.teamName;
+        return this.localName + " " + this.teamName;
     }
 
     public Manager getManager() {

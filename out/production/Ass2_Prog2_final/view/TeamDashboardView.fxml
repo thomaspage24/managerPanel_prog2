@@ -24,7 +24,7 @@
 
         <Separator/>
 
-        <HBox> 
+        <HBox styleClass="background">
             <!-- player list-->
             <VBox spacing="5" alignment="CENTER">
                 <TableView fx:id="playersTv" prefWidth="300" prefHeight="400">
@@ -39,9 +39,20 @@
                 </TableView>
             </VBox>
 
-            <VBox spacing ="10" alignment="CENTER">
-                <Label styleClass="activeTeamHeader" text="Active Team"/>
-                <GridPane fx:id="teamJerseyGrid" hgap="10" vgap="10"/>
+            <VBox spacing="10" alignment="TOP_CENTER"
+                style="-fx-background-color: #FFFFFF;">
+                <Label prefWidth="270" alignment="TOP_CENTER" styleClass="activeTeamHeader" text="Active Team"/>
+                <GridPane alignment="center" fx:id="teamJerseyGrid" hgap="10" vgap="10" style="-fx-background-color: #FFFFFF;">
+                    <ImageView fx:id="jersey0" GridPane.rowIndex="0" GridPane.columnIndex="1" fitWidth="80" fitHeight="70"/>
+                    <!-- row -->
+                    <ImageView fx:id="jersey1" GridPane.rowIndex="1" GridPane.columnIndex="0" fitWidth="80" fitHeight="80"/>
+                    <ImageView fx:id="jersey2" GridPane.rowIndex="1" GridPane.columnIndex="1" fitWidth="80" fitHeight="80"/>
+                    <ImageView fx:id="jersey3" GridPane.rowIndex="1" GridPane.columnIndex="2" fitWidth="80" fitHeight="80"/>
+                    <!-- row -->
+                    <ImageView fx:id="jersey4" GridPane.rowIndex="2" GridPane.columnIndex="1" fitWidth="80" fitHeight="80"/>
+
+
+                </GridPane>
 
             </VBox>
         </HBox>

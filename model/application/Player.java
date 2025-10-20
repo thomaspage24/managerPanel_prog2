@@ -26,6 +26,8 @@ public class Player {
     public Team getTeam() {
         return team;
     }
+    public String getPosition() { return positionProperty.get(); }
+
 
     public void setTeam(Team team) { this.team = team; }
 

@@ -17,12 +17,18 @@ public class Team {
         this.currentTeam = new Player[REQUIRED_TEAM_SIZE];
     }
 
+    public Player[] getCurrentTeam() {
+        return currentTeam;
+    }
+
     public String getTeamName() {
         return this.teamName;
     }
+
     public String getTeamFullName() {
         return this.localName + " " + this.teamName;
     }
+
 
     public Manager getManager() {
         return this.manager;

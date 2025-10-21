@@ -35,18 +35,15 @@ public class LoginController extends Controller<League> {
             stage.close(); // ?? maybe
 
         } catch (UnauthorisedAccessException e) {
-            showErrorScreen(e.getClass().getSimpleName());
+            ErrorController.exceptionMsg = e.getMessage();
+            ErrorController.exceptionType = e.getClass().getSimpleName();
+            ViewLoader.showStage(null,"/view/ErrorView.fxml", "error", new Stage());
+
         }
     }
     @FXML
     private void handleClose() {
         stage.close();
-    }
-
-    private void showErrorScreen(String s) {
-        // implement invalid login and invalid format aswell
-        ViewLoader.showStage(s,"/view/ErrorView.fxml", "error", new Stage());
-
     }
 
 

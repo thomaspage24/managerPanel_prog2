@@ -18,15 +18,16 @@ import javafx.stage.Stage;
 public class ErrorController extends Controller <String>{
     @FXML private Button closeButton;
     @FXML private Label exceptionText;
+    @FXML private Label detailMsg;
+    public static String exceptionType;
+    public static String exceptionMsg;
 
     @FXML
     private void initialize() {
-        if (model != null) {
-            exceptionText.setText(model);
-
-        } else {
-            exceptionText.setText("Unknown Error");
-        }
+      
+        exceptionText.setText(exceptionType);
+        detailMsg.setText(exceptionMsg);
+       
     }
 
     @FXML

@@ -54,7 +54,7 @@ public class TeamDashboardController extends Controller<Manager> {
         enterPlayerTf.textProperty().addListener((obs, oldText, newText) -> {
             signBtn.setDisable(false);
         });
-
+        unsignBtn.disableProperty().bind(playersTv.getSelectionModel().selectedItemProperty().isNull());
         if (model != null) {
             Team team = model.getTeam();
             teamNameLbl.setText(team.getTeamFullName());
@@ -62,21 +62,62 @@ public class TeamDashboardController extends Controller<Manager> {
             refreshJerseyGrid();
 
         }
-        System.out.println("Columns loaded: " + playersTv.getColumns().size());
-        for (TableColumn<?, ?> col : playersTv.getColumns())
-            System.out.println(" -> " + col.getText());
+       
 
+    }
+    @FXML private void handleUnsign() {
+        /*
+         * listen to table view selected content
+         * then just unsign them, should update the table view auto
+         */
+        Player p = playersTv.getSelectionModel().getSelectedItem();
+        Team t = model.getTeam();
+        League l = League.getInstance();
+        if (p == null) {
+            return;
+        }
+
+        t.getAllPlayers().remove(p);
+        p.setTeam(null);
+        playersTv.refresh();
+        refreshJerseyGrid();
 
     }
 
     @FXML private void handleSign() {
         /* if player not in league/alr on team/diff team ivalidsigning 
-         * get p
+         * need League, team and players to handle
+         * catch exceptions for error 
         */
+        String playerToFind = enterPlayerTf.getText();
+        League league = League.getInstance();
         Team team = model.getTeam();
-        if (team != null) {
-            return;
+
+        try {
+            Player playerToSign = league.getPlayers().player(playerToFind);
+
+            if (playerToFind.isEmpty() || playerToSign == null) {
+                throw new InvalidSigningException("Player does not exist in the league");
+            }
+            if (team.getAllPlayers().getPlayers().contains(playerToSign)) {
+                throw new InvalidSigningException(playerToSign.getFullName() + " is already signed to your team.");
+            }
+            if (playerToSign.getTeam() != null) {
+                throw new FillException("Cannot sign " + playerToSign.getFullName() + ", player is already signed to " + playerToSign.getTeam().getTeamFullName());
+            }
+            
+            playerToSign.setTeam(team);
+            team.getAllPlayers().add(playerToSign);
+            enterPlayerTf.setText("");
+        } catch (InvalidSigningException | FillException e) {
+            
+            ErrorController.exceptionType = e.getClass().getSimpleName();
+            ErrorController.exceptionMsg = e.getMessage();
+            ViewLoader.showStage(null, "/view/ErrorView.fxml", "error", new Stage());
         }
+    }
+    @FXML private void showErrorScreen(String s) {
+        ViewLoader.showStage(s, "/view/ErrorView.fxml", "error", new Stage());
     }
 
     @FXML private void refreshJerseyGrid() {

@@ -17,6 +17,7 @@ import javafx.beans.property.*;
 import model.exception.UnauthorisedAccessException;
 import model.exception.FillException;
 import model.exception.InvalidSigningException;
+import model.exception.InvalidUnsigningException;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -51,9 +52,13 @@ public class TeamDashboardController extends Controller<Manager> {
 //        playerColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
 //        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
 //        playersTv.getColumns().addAll(playerColumn, positionColumn);
+        signBtn.setDisable(true);
+        enterPlayerTf.textProperty().addListener((o, oldText, newText) -> {
+            signBtn.setDisable(newText.isEmpty());
+            if (!enterPlayerTf.getText().isEmpty()) {
+                enterPlayerTf.setOnAction(e -> handleSign());
+            }
 
-        enterPlayerTf.textProperty().addListener((obs, oldText, newText) -> {
-            signBtn.setDisable(false);
         });
         unsignBtn.disableProperty().bind(playersTv.getSelectionModel().selectedItemProperty().isNull());
         jerseys = Arrays.asList(jersey0, jersey1, jersey2, jersey3, jersey4);
@@ -79,16 +84,27 @@ public class TeamDashboardController extends Controller<Manager> {
         Player p = playersTv.getSelectionModel().getSelectedItem();
         Team t = model.getTeam();
         League l = League.getInstance();
+        Player[] crntTm = t.getCurrentTeam();
+
         if (p == null) {
             return;
         }
+        try {
+            for (Player p1 : crntTm) {
+                if (p == p1) {
+                    throw new InvalidUnsigningException("Player is in active team lineup, unable to unsign");
+                }
+            }
 
-        t.getAllPlayers().remove(p);
-        p.setTeam(null);
-        System.out.println(p);
-        playersTv.refresh();
-        refreshJerseyGrid();
-
+            t.getAllPlayers().remove(p);
+            p.setTeam(null);
+            playersTv.refresh();
+            refreshJerseyGrid();
+        } catch (InvalidUnsigningException e) {
+            ErrorController.exceptionMsg = e.getMessage();
+            ErrorController.exceptionType = e.getClass().getSimpleName();
+            ViewLoader.showStage(null, "/view/ErrorView.fxml", "error", new Stage());
+        }
     }
 
     @FXML private void handleSign() {
@@ -110,7 +126,7 @@ public class TeamDashboardController extends Controller<Manager> {
                 throw new InvalidSigningException(playerToSign.getFullName() + " is already signed to your team.");
             }
             if (playerToSign.getTeam() != null) {
-                throw new FillException("Cannot sign " + playerToSign.getFullName() + ", player is already signed to " + playerToSign.getTeam().getTeamFullName());
+                throw new FillException("unable to sign " + playerToSign.getFullName() + ", player is already signed to " + playerToSign.getTeam().getTeamFullName());
             }
             
             playerToSign.setTeam(team);
@@ -261,10 +277,10 @@ public class TeamDashboardController extends Controller<Manager> {
 
             if (player != null) {
                 img.setImage(new Image(getClass().getResourceAsStream("/view/image/" + team.getJerseyString())));
-                Tooltip.install(img, new Tooltip(player.getFullName() + " " + player.getPosition() ));
+                Tooltip.install(img, new Tooltip(player.toString()));
             } else {
                 img.setImage(new Image(getClass().getResourceAsStream("/view/image/none.png")));
-                Tooltip.uninstall(img,null);
+                Tooltip.install(img, new Tooltip("unallocated"));
             }
         }
         printCurrentTeam();

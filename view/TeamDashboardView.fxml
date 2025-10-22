@@ -19,7 +19,7 @@
         <HBox alignment="CENTER" spacing="10">
             <Label text="Sign a new player:"/>
             <TextField fx:id="enterPlayerTf"/>
-            <Button fx:id="signBtn" onAction="#handleSign" disable="true" styleClass="button" prefWidth="65" text="Sign"/>
+            <Button fx:id="signBtn" onAction="#handleSign" styleClass="button" prefWidth="65" text="Sign"/>
         </HBox>
 
         <Separator/>

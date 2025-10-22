@@ -62,9 +62,25 @@ public class TeamDashboardController extends Controller<Manager> {
             refreshJerseyGrid();
 
         }
-       
+        //check currentTeamp[]
+        Team t = model.getTeam();
+        Player[] currentTeam = t.getCurrentTeam();
+        System.out.println("curret team players");
+        for (int i= 0; i < currentTeam.length; i++) {
+            Player p = currentTeam[i];
+            if (p != null) {
+                System.out.println("Slot " + ": " + p.getFullName() + p.getPosition());
+            } else {
+                System.out.println("Slot " + i + ": ");
+            }
+        }
+        System.out.println("----");
 
     }
+    @FXML private void handleClose() {
+        stage.close();
+    }
+
     @FXML private void handleUnsign() {
         /*
          * listen to table view selected content
@@ -79,6 +95,7 @@ public class TeamDashboardController extends Controller<Manager> {
 
         t.getAllPlayers().remove(p);
         p.setTeam(null);
+        System.out.println(p);
         playersTv.refresh();
         refreshJerseyGrid();
 
@@ -107,6 +124,7 @@ public class TeamDashboardController extends Controller<Manager> {
             }
             
             playerToSign.setTeam(team);
+            System.out.println(playerToSign);
             team.getAllPlayers().add(playerToSign);
             enterPlayerTf.setText("");
         } catch (InvalidSigningException | FillException e) {
@@ -120,6 +138,16 @@ public class TeamDashboardController extends Controller<Manager> {
         ViewLoader.showStage(s, "/view/ErrorView.fxml", "error", new Stage());
     }
 
+    @FXML private void initialiseJerseyListener() {
+        List<ImageView> jerseys = Arrays.asList(jersey0, jersey1, jersey2, jersey3, jersey4);
+
+    }
+
+    @FXML private void handleClickOnJersey(int n) {
+
+    }
+    
+    
     @FXML private void refreshJerseyGrid() {
         /*
         fetch list

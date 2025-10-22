@@ -34,7 +34,7 @@ public class LoginController extends Controller<League> {
 
             stage.close(); // ?? maybe
 
-        } catch (UnauthorisedAccessException e) {
+        } catch (Exception e) {
             ErrorController.exceptionMsg = e.getMessage();
             ErrorController.exceptionType = e.getClass().getSimpleName();
             ViewLoader.showStage(null,"/view/ErrorView.fxml", "error", new Stage());

@@ -57,8 +57,8 @@
             </VBox>
         </HBox>
         <HBox>
-            <Button disable="true" styleClass="button" fx:id="unsignBtn" text="Unsign" prefWidth="270" />
-            <Button styleClass="button" fx:id="closeBtn" text="Close" prefWidth="270"/>
+            <Button disable="true" onAction="#handleUnsign" styleClass="button" fx:id="unsignBtn" text="Unsign" prefWidth="270" />
+            <Button styleClass="button" onAction="#handleClose" fx:id="closeBtn" text="Close" prefWidth="270"/>
         </HBox>
 
 

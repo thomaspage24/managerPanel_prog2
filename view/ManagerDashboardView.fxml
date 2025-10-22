@@ -21,8 +21,8 @@
             <Button fx:id="manageBtn" onAction="#handleManage" styleClass="button" prefWidth="160" HBox.hgrow="ALWAYS" text="Manage"/>
         </HBox>
         <HBox alignment="CENTER">
-            <Button fx:id="swapBtn" onAction="#handleSwap" styleClass="button" prefWidth="160" HBox.hgrow="ALWAYS" text="Swap"/>
-            <Button fx:id="closeBtn" onAction="#handleClose" styleClass="button" prefWidth="160" HBox.hgrow="ALWAYS" text="Close"/>
+            <Button fx:id="swapBtn" onAction="#handleSwap" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Swap"/>
+            <Button fx:id="closeBtn" onAction="#handleClose" styleClass="button" prefWidth="270" HBox.hgrow="ALWAYS" text="Close"/>
         </HBox>
 
     </VBox>

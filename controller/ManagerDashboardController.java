@@ -75,7 +75,7 @@ public class ManagerDashboardController extends Controller<Manager>{
             return;
         }
 
-        teamNameLbl.setText(team.getTeamName());
+        teamNameLbl.setText(team.getTeamFullName());
         String pathToImage = "/view/image/" + team.getJerseyString();
         jersey.setImage(new Image(getClass().getResourceAsStream(pathToImage)));
     }
